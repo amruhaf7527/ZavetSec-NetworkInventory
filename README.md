@@ -292,18 +292,4 @@ If you find this tool useful in your work, consider giving it a star — it help
 
 ---
 
-## Part of ZavetSec Toolkit
-
-`ZavetSec-NetworkInventory` is part of the [ZavetSec](https://github.com/zavetsec) open-source DFIR and InfoSec toolkit — self-contained, dependency-free tools built for Windows SOC environments.
-
-| Tool | Description |
-|---|---|
-| `Invoke-ZavetSecTriage` | Windows live forensics — 17 modules, MITRE ATT&CK tagged |
-| `Invoke-MBHashCheck` | MalwareBazaar / ThreatFox hash checker |
-| `ZavetSec OSINT Toolkit` | Passive recon HTML app — Shodan, VirusTotal, AbuseIPDB, Hunter.io |
-| `ZavetSec Vault` | Offline AES-256-GCM password manager with KeePass import/export |
-| `ZavetSec DLP Agent` | C# endpoint DLP — clipboard, keylog, USB, file, network monitoring |
-
----
-
 *Scan responsibly. Know your network.*
