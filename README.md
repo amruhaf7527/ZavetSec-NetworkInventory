@@ -48,7 +48,7 @@ Reports are saved in the script directory automatically.
 
 ## Report Preview
 
-<img width="1866" height="880" alt="image" src="https://github.com/user-attachments/assets/68333505-7265-4919-a7f8-fc679ade2957" />
+<img width="1653" height="815" alt="image" src="https://github.com/user-attachments/assets/a7a704c2-39b3-4959-812c-80a11b2fce85" />
 
 ---
 
