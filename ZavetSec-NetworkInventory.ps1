@@ -955,11 +955,31 @@ Write-Info "Scan complete: $($allResults.Count) hosts profiled"
 # EXPORT CSV
 # -------------------------------------------------------
 Write-Section "Exporting CSV"
-$allResults | Select-Object IP,Hostname,OS,OSVersion,Domain,LastBoot,PortCount,SmbSigning,RiskLevel,IsEOL,HasRDP,HasWinRM,HasSSH,HasSMB,HasDB,
-    @{N='OpenPorts';E={$_.OpenPorts -join ','}},
-    @{N='Services'; E={$_.Services  -join ','}},
-    @{N='Risks';    E={$_.Risks     -join ' | '}} |
-    Export-Csv -Path $CsvPath -NoTypeInformation -Encoding UTF8
+$csvRows = foreach ($r in $allResults) {
+    [PSCustomObject]@{
+        IP          = [string]$r.IP
+        Hostname    = [string]$r.Hostname
+        OS          = [string]$r.OS
+        Domain      = [string]$r.Domain
+        RiskLevel   = [string]$r.RiskLevel
+        SmbSigning  = [string]$r.SmbSigning
+        MAC         = [string]$r.MacAddress
+        Vendor      = [string]$r.Vendor
+        IsEOL       = [string]$r.IsEOL
+        HasRDP      = [string]$r.HasRDP
+        HasWinRM    = [string]$r.HasWinRM
+        HasSSH      = [string]$r.HasSSH
+        HasSMB      = [string]$r.HasSMB
+        HasDB       = [string]$r.HasDB
+        MS17010     = [string]$r.MS17010
+        PortCount   = [string]$r.PortCount
+        OpenPorts   = (@($r.OpenPorts | ForEach-Object { [string]$_ }) -join ',')
+        Services    = (@($r.Services  | ForEach-Object { [string]$_ }) -join ',')
+        WeakCreds   = (@($r.WeakCreds | ForEach-Object { [string]$_ }) -join ',')
+        Risks       = (@($r.Risks     | ForEach-Object { [string]$_ }) -join ' | ')
+    }
+}
+$csvRows | Export-Csv -Path $CsvPath -NoTypeInformation -Encoding UTF8
 Write-Info "CSV saved: $CsvPath"
 
 # -------------------------------------------------------
@@ -1047,11 +1067,7 @@ $hostRows = foreach ($h in $allResults) {
         $rb = [System.Text.StringBuilder]::new()
         [void]$rb.Append("<table class='port-tbl'>")
         foreach ($ri in $riskItems) {
-            $rColor = if ($ri -match 'EternalBlue|VULNERABLE|EOL|Telnet') { '#ff2d55' }
-                      elseif ($ri -match 'SMB sign|Weak creds|Weak TLS|expired|FTP open') { '#ff6b00' }
-                      elseif ($ri -match 'Self-signed|ICMP|Risky') { '#ffd60a' }
-                      else { '#a0a0c0' }
-            [void]$rb.Append('<tr><td style="padding:2px 0;white-space:nowrap"><span style="display:inline-block;padding:1px 7px;border-radius:3px;font-size:9px;font-weight:700;background:#1a1020;border:1px solid ' + $rColor + ';color:' + $rColor + '">' + $ri + '</span></td></tr>')
+            [void]$rb.Append('<tr><td style="padding:2px 0"><span class="risk-tag">' + $ri + '</span></td></tr>')
         }
         [void]$rb.Append("</table>")
         $rb.ToString()
@@ -1090,7 +1106,7 @@ $hostRows = foreach ($h in $allResults) {
     $macCell = if ($macStr) {
         "<td style='font-family:Courier New,monospace;font-size:11px;vertical-align:top;padding:6px 10px'>" +
         "<span style='color:#00d4ff;letter-spacing:0.5px'>" + $macStr + "</span>" +
-        $(if ($vendorStr) { "<br><span style='color:#a0a0b8;font-size:9px;font-family:Courier New,monospace;font-weight:700'>" + $vendorStr + "</span>" } else { "" }) +
+        $(if ($vendorStr) { "<br><span style='color:#a0a0b8;font-size:11px;font-family:Courier New,monospace;font-weight:700'>" + $vendorStr + "</span>" } else { "" }) +
         "</td>"
     } else { "<td style='color:#3a3a55;font-size:10px'>-</td>" }
     [void]$row.Append($macCell)
@@ -1153,7 +1169,7 @@ tr:hover td{background:#0d0d20}
 .dom{font-size:10px;color:#6e6e80}
 .ports{max-width:240px;line-height:1;display:block}
 .eol-tag{background:#ff2d55;color:#fff;padding:1px 5px;border-radius:3px;font-size:9px;font-weight:700;margin-left:4px}
-.risk-tag{background:#1a1020;border:1px solid #3a1028;color:#ff9eb0;padding:1px 6px;border-radius:3px;font-size:9px;white-space:nowrap;margin:1px}
+.risk-tag{background:#1a1020;border:1px solid #3a1028;color:#ff9eb0;padding:2px 8px;border-radius:3px;font-size:10px;white-space:nowrap;margin:2px 0;display:inline-block}
 .svc{display:inline-block;padding:1px 6px;border-radius:3px;font-size:9px;font-weight:700;margin:1px}
 .rdp{background:#1a0a2e;color:#a78bfa}.winrm{background:#0a1a2e;color:#00d4ff}
 .ssh{background:#0a2e1a;color:#30d158}.smb{background:#2e1a0a;color:#ff6b00}
